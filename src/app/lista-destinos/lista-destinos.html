@@ -1,0 +1,39 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card border-primary shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">Mi Wishlist de Viajes</h4>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="mb-3">
+              <label for="txtNombre" class="form-label">Nombre del Destino</label>
+              <input type="text" class="form-control" id="txtNombre" #nombre placeholder="Ej. París, Japón...">
+            </div>
+            <div class="mb-3">
+              <label for="txtUrl" class="form-label">Enlace de la Imagen</label>
+              <input type="text" class="form-control" id="txtUrl" #url placeholder="https://ejemplo.com/foto.jpg">
+            </div>
+            <button type="button" class="btn btn-success w-100" (click)="guardar(nombre.value, url.value)">¡Agregar al listado!</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-5">
+
+  <div class="row">
+    <div class="col-12">
+      <h3 class="mb-4 text-secondary">Destinos Agregados:</h3>
+      
+      <ul class="list-unstyled row">
+        <li class="col-md-4 mb-4" *ngFor="let d of destinos">
+          <app-destino-viaje [destino]="d"></app-destino-viaje>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>
