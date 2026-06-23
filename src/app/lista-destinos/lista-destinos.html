@@ -3,7 +3,7 @@
     <div class="col-md-6 offset-md-3">
       <div class="card border-primary shadow-sm">
         <div class="card-header bg-primary text-white">
-          <h4 class="mb-0">Mi Wishlist de Viajes</h4>
+          <h4 class="mb-0">{{ 'FORM_TITULO' | translate }}</h4>
         </div>
         <div class="card-body">
           <app-form-destino-viaje (onItemAdded)="onItemAdded($event)"></app-form-destino-viaje>
@@ -17,21 +17,24 @@
   <!-- Destinos Agregados (desde el store de NgRx) -->
   <div class="row">
     <div class="col-12">
-      <h3 class="mb-4 text-secondary">Destinos Agregados:</h3>
+      <h3 class="mb-4 text-secondary">{{ 'LISTA_TITULO' | translate }}</h3>
       
       <ul class="list-unstyled row">
         <li class="col-md-4 mb-4" *ngFor="let d of destinos$ | async; let i = index">
           <app-destino-viaje [destino]="d" [index]="i" (seleccionarPreferido)="seleccionar($event)"></app-destino-viaje>
-          <button class="btn btn-sm btn-outline-danger mt-1" (click)="eliminar(i)">🗑️ Eliminar</button>
+          <div class="mt-1">
+            <a [routerLink]="['../detalle', i]" class="btn btn-sm btn-outline-info me-1">ℹ️ {{ 'LISTA_DETALLE' | translate }}</a>
+            <button class="btn btn-sm btn-outline-danger" (click)="eliminar(i)">🗑️ {{ 'LISTA_ELIMINAR' | translate }}</button>
+          </div>
         </li>
       </ul>
 
       <p *ngIf="(destinos$ | async)?.length === 0" class="text-muted">
-        Aún no se han agregado destinos.
+        {{ 'LISTA_VACIO' | translate }}
       </p>
 
       <button *ngIf="(destinos$ | async)?.length! > 0" class="btn btn-warning btn-sm mt-2" (click)="resetVotos()">
-        🔄 Resetear Votos
+        🔄 {{ 'LISTA_RESET' | translate }}
       </button>
     </div>
   </div>
@@ -43,7 +46,7 @@
     <div class="col-12">
       <div class="card border-info shadow-sm">
         <div class="card-header bg-info text-white">
-          <h5 class="mb-0">📋 Actividad</h5>
+          <h5 class="mb-0">📋 {{ 'LOG_TITULO' | translate }}</h5>
         </div>
         <div class="card-body">
           <ul class="list-group" *ngIf="(actividades$ | async)?.length! > 0">
@@ -52,7 +55,7 @@
             </li>
           </ul>
           <p *ngIf="(actividades$ | async)?.length === 0" class="text-muted mb-0">
-            Aún no se ha seleccionado ningún destino preferido.
+            {{ 'LOG_VACIO' | translate }}
           </p>
         </div>
       </div>

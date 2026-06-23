@@ -1,26 +1,45 @@
-<!-- Header con navegación -->
 <div class="container-fluid bg-dark text-white py-3 mb-4">
   <div class="container">
     <div class="row align-items-center">
       <div class="col-md-4">
-        <h1 class="h3 mb-0">Ruteo Simple</h1>
+        <h1 class="h3 mb-0">{{ 'HEADER_TITULO' | translate }}</h1>
       </div>
-      <div class="col-md-8">
-        <nav class="nav-links">
-          <a routerLink="/home" class="btn btn-outline-light btn-sm me-2">
-            <i class="bi bi-house"></i> Home
+      <div class="col-md-8 d-flex align-items-center justify-content-end gap-2">
+        <nav class="nav-links d-flex flex-wrap">
+          <a routerLink="/destinos/listar" class="btn btn-outline-light btn-sm me-2">
+            <i class="bi bi-house"></i> {{ 'NAV_HOME' | translate }}
           </a>
-          <a routerLink="/destino" class="btn btn-outline-light btn-sm me-2">
-            <i class="bi bi-geo-alt"></i> Destino
+          <a routerLink="/destinos/nuevo" class="btn btn-outline-light btn-sm me-2">
+            <i class="bi bi-geo-alt"></i> {{ 'NAV_NUEVO' | translate }}
           </a>
-          <a routerLink="/destino/detalle" class="btn btn-outline-info btn-sm">
-            <i class="bi bi-info-circle"></i> Ver Detalle
+          <a routerLink="/destinos/detalle/1" class="btn btn-outline-info btn-sm me-2">
+            <i class="bi bi-info-circle"></i> {{ 'NAV_DETALLE' | translate }}
+          </a>
+          <a routerLink="/admin" class="btn btn-outline-warning btn-sm me-2">
+            <i class="bi bi-shield-lock"></i> {{ 'NAV_ADMIN' | translate }}
+          </a>
+          <a routerLink="/di-demo" class="btn btn-outline-secondary btn-sm me-2">
+            <i class="bi bi-plug"></i> {{ 'NAV_DI_DEMO' | translate }}
+          </a>
+          <a routerLink="/login" class="btn btn-outline-success btn-sm">
+            <i class="bi bi-box-arrow-in-right"></i> {{ 'NAV_LOGIN' | translate }}
           </a>
         </nav>
+
+        <!-- Selector de idioma -->
+        <div class="d-flex align-items-center gap-1 ms-3">
+          <button class="btn btn-sm"
+                  [class.btn-light]="idiomaActual === 'es'"
+                  [class.btn-outline-light]="idiomaActual !== 'es'"
+                  (click)="cambiarIdioma('es')">🇪🇸 ES</button>
+          <button class="btn btn-sm"
+                  [class.btn-light]="idiomaActual === 'en'"
+                  [class.btn-outline-light]="idiomaActual !== 'en'"
+                  (click)="cambiarIdioma('en')">🇺🇸 EN</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Router Outlet -->
 <router-outlet></router-outlet>

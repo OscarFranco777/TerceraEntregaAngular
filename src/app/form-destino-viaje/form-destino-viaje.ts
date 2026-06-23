@@ -4,6 +4,7 @@ import { AbstractControl, ReactiveFormsModule, FormGroup, FormBuilder, Validatio
 import { HttpClient } from '@angular/common/http';
 import { fromEvent, Subscription } from 'rxjs';
 import { map, filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { TranslatePipe } from '@ngx-translate/core';
 
 // Variable parametrizable
 const MIN_LOG_NOMBRE = 5;
@@ -40,7 +41,7 @@ interface LugarTuristico {
 @Component({
   selector: 'app-form-destino-viaje',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, TranslatePipe],
   templateUrl: './form-destino-viaje.html',
   styleUrl: './form-destino-viaje.css'
 })

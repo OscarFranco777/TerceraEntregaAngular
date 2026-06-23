@@ -12,16 +12,19 @@ import { DestinoViaje } from './../models/destino-viaje.models';
 })
 export class DestinoDetalleComponent implements OnInit {
   destino!: DestinoViaje;
+  destinoId: string = '';
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    // Por ahora muestra un destino de ejemplo
-    // Más adelante se puede conectar con un servicio
-    this.destino = new DestinoViaje(
-      'Destino Seleccionado',
-      '',
-      'wifi'
-    );
+    // Se suscribe al parámetro 'id' de la URL de forma reactiva
+    this.route.params.subscribe(params => {
+      this.destinoId = params['id'];
+      this.destino = new DestinoViaje(
+        `Destino #${this.destinoId}`,
+        '',
+        'wifi'
+      );
+    });
   }
 }

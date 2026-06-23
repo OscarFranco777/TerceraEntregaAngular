@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { DestinoViaje } from '../models/destino-viaje.models';
+import { DestinoViajeEntity } from '../db/dexie.db';
 
 export const addDestino = createAction(
   '[Destinos] Add Destino',
@@ -28,4 +29,11 @@ export const downvote = createAction(
 
 export const resetVotes = createAction(
   '[Destinos] Reset Votes'
+);
+
+export const initApp = createAction('[Destinos] Init App');
+
+export const loadFromDexie = createAction(
+  '[Destinos] Load From Dexie',
+  props<{ destinos: DestinoViajeEntity[] }>()
 );

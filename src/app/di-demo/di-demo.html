@@ -1,0 +1,53 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Demo de Dependency Injection</h2>
+
+  <!-- 1) InjectionToken con useValue -->
+  <div class="card mb-3">
+    <div class="card-header bg-primary text-white">
+      <strong>1) InjectionToken + useValue</strong>
+    </div>
+    <div class="card-body">
+      <p><strong>APP_CONFIG_TOKEN:</strong> {{ appConfig }}</p>
+      <p><strong>API_URL_TOKEN:</strong> {{ apiUrl }}</p>
+    </div>
+  </div>
+
+  <!-- 2) useClass -->
+  <div class="card mb-3">
+    <div class="card-header bg-success text-white">
+      <strong>2) useClass</strong>
+    </div>
+    <div class="card-body">
+      <p>Logger injectado (clase <code>ConsoleLoggerService</code>):</p>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" [(ngModel)]="nombreServicio"
+               placeholder="Escribí un mensaje para registrar...">
+        <button class="btn btn-success" (click)="registrar()">Registrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3) useExisting -->
+  <div class="card mb-3">
+    <div class="card-header bg-info text-white">
+      <strong>3) useExisting</strong>
+    </div>
+    <div class="card-body">
+      <p><strong>MISMA_LOGGER_TOKEN:</strong> {{ nombreServicio }}</p>
+      <p class="text-muted">Ambos tokens apuntan a la misma instancia de ConsoleLoggerService.</p>
+    </div>
+  </div>
+
+  <!-- Historial -->
+  <div class="card mb-3">
+    <div class="card-header bg-dark text-white">
+      <strong>Historial del Logger</strong>
+    </div>
+    <div class="card-body">
+      <ul class="list-group" *ngIf="historial.length > 0">
+        <li class="list-group-item" *ngFor="let entry of historial">{{ entry }}</li>
+      </ul>
+      <p *ngIf="historial.length === 0" class="text-muted">No hay entradas aún.</p>
+    </div>
+  </div>
+</div>

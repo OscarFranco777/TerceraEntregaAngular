@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -6,30 +6,41 @@ import { DestinoViajeComponent } from '../destino-viaje/destino-viaje';
 import { FormDestinoViajeComponent } from '../form-destino-viaje/form-destino-viaje';
 import { DestinoViaje } from './../models/destino-viaje.models';
 import { DestinosState } from '../state/destinos.reducer';
-import { addDestino, deleteDestino, seleccionarDestino, resetVotes } from '../state/destinos.actions';
+import { RouterLink } from '@angular/router';
+import { deleteDestino, seleccionarDestino, resetVotes, addDestino, initApp } from '../state/destinos.actions';
+import { DestinosApiService } from '../services/destinos-api.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-lista-destinos',
   standalone: true,
-  imports: [CommonModule, DestinoViajeComponent, FormDestinoViajeComponent],  
+  imports: [CommonModule, DestinoViajeComponent, FormDestinoViajeComponent, RouterLink, TranslatePipe],  
   templateUrl: './lista-destinos.html',
   styleUrl: './lista-destinos.css'
 })
-export class ListaDestinos {
+export class ListaDestinos implements OnInit {
   destinos$: Observable<DestinoViaje[]>;
   actividades$: Observable<string[]>;
 
-  constructor(private store: Store<{ destinos: DestinosState }>) {
-    // Seleccionar el listado de destinos del store (reactivo)
+  constructor(
+    private store: Store<{ destinos: DestinosState }>,
+    private apiService: DestinosApiService
+  ) {
     this.destinos$ = this.store.select(state => state.destinos.destinos);
-    // Seleccionar las actividades del store (reactivo)
     this.actividades$ = this.store.select(state => state.destinos.actividades);
   }
 
+  ngOnInit(): void {
+    this.store.dispatch(initApp());
+  }
+
   onItemAdded(event: { nombre: string; url: string }): void {
-    console.log('=== padre recibió onItemAdded ===', event);
     const nuevo = new DestinoViaje(event.nombre, event.url, 'wifi');
     this.store.dispatch(addDestino({ destino: nuevo }));
+    this.apiService.addDestino(nuevo).subscribe({
+      next: (res) => console.log('[API] OK:', res),
+      error: (err) => console.error('[API] Error:', err)
+    });
   }
 
   seleccionar(d: DestinoViaje): void {
