@@ -1,4 +1,4 @@
-<div class="card h-100 shadow-sm" [ngClass]="{'border-success border-2': destino.preferred, 'border-light': !destino.preferred}">
+<div class="card h-100 shadow-sm" [@animacionFavorito]="animacionFavoritoState" [ngClass]="{'border-success border-2': destino.preferred, 'border-light': !destino.preferred}" appResaltar appClickTracker [attr.data-tracking-tag]="'destino-card-' + destino.nombre">
 
   <!-- Posición / Índice -->
   <div class="position-absolute top-0 start-0 m-2">
@@ -39,18 +39,18 @@
 
     <!-- Botones de Voto -->
     <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
-      <button type="button" class="btn btn-outline-success btn-sm" (click)="onUpvote()">
+      <button type="button" class="btn btn-outline-success btn-sm" (click)="onUpvote()" appClickTracker [attr.data-tracking-tag]="'upvote-' + destino.nombre">
         👍 Me gusta
       </button>
       <span class="badge bg-secondary">{{ destino.votos }}</span>
-      <button type="button" class="btn btn-outline-danger btn-sm" (click)="onDownvote()">
+      <button type="button" class="btn btn-outline-danger btn-sm" (click)="onDownvote()" appClickTracker [attr.data-tracking-tag]="'downvote-' + destino.nombre">
         👎 No me gusta
       </button>
     </div>
 
     <p class="card-text text-muted small">¡Listo para la aventura!</p>
 
-    <button type="button" class="btn btn-primary btn-sm px-4" (click)="onSeleccionar()">
+    <button type="button" class="btn btn-primary btn-sm px-4" (click)="onSeleccionar()" appClickTracker [attr.data-tracking-tag]="'ir-' + destino.nombre">
       <i class="bi bi-geo-alt"></i> Ir
     </button>
   </div>

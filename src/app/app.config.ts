@@ -4,11 +4,13 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideTranslateService, provideTranslateLoader } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { routes } from './app.routes';
 import { destinosReducer } from './state/destinos.reducer';
+import { trackingReducer } from './state/tracking.reducer';
 import { DestinosEffects } from './state/destinos.effects';
 import {
   APP_CONFIG_TOKEN,
@@ -17,15 +19,17 @@ import {
   ConsoleLoggerService,
   MISMA_LOGGER_TOKEN
 } from './di/ejemplo-di';
+import { TrackingService } from './services/tracking.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideHttpClient(),
-    provideStore({ destinos: destinosReducer }),
+    provideStore({ destinos: destinosReducer, tracking: trackingReducer }),
     provideEffects([DestinosEffects]),
     provideStoreDevtools({ maxAge: 25 }),
+    provideAnimations(),
 
     provideTranslateService({
       lang: 'es',

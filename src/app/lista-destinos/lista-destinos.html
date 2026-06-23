@@ -20,11 +20,11 @@
       <h3 class="mb-4 text-secondary">{{ 'LISTA_TITULO' | translate }}</h3>
       
       <ul class="list-unstyled row">
-        <li class="col-md-4 mb-4" *ngFor="let d of destinos$ | async; let i = index">
+        <li class="col-md-4 mb-4" *ngFor="let d of destinos$ | async; let i = index" [@listaAnimacion]="listaState">
           <app-destino-viaje [destino]="d" [index]="i" (seleccionarPreferido)="seleccionar($event)"></app-destino-viaje>
           <div class="mt-1">
-            <a [routerLink]="['../detalle', i]" class="btn btn-sm btn-outline-info me-1">ℹ️ {{ 'LISTA_DETALLE' | translate }}</a>
-            <button class="btn btn-sm btn-outline-danger" (click)="eliminar(i)">🗑️ {{ 'LISTA_ELIMINAR' | translate }}</button>
+            <a [routerLink]="['../detalle', i]" class="btn btn-sm btn-outline-info me-1" appClickTracker data-tracking-tag="ver-detalle">ℹ️ {{ 'LISTA_DETALLE' | translate }}</a>
+            <button class="btn btn-sm btn-outline-danger" (click)="eliminar(i)" appClickTracker data-tracking-tag="eliminar-destino">🗑️ {{ 'LISTA_ELIMINAR' | translate }}</button>
           </div>
         </li>
       </ul>
@@ -33,7 +33,7 @@
         {{ 'LISTA_VACIO' | translate }}
       </p>
 
-      <button *ngIf="(destinos$ | async)?.length! > 0" class="btn btn-warning btn-sm mt-2" (click)="resetVotos()">
+      <button *ngIf="(destinos$ | async)?.length! > 0" class="btn btn-warning btn-sm mt-2" (click)="resetVotos()" appClickTracker data-tracking-tag="reset-votos">
         🔄 {{ 'LISTA_RESET' | translate }}
       </button>
     </div>

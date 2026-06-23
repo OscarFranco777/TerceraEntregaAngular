@@ -6,11 +6,13 @@ import { AdminComponent } from './admin/admin.component';
 import { authGuard } from './auth/auth.guard';
 import { DestinosContainerComponent } from './destinos-container/destinos-container.component';
 import { DiDemoComponent } from './di-demo/di-demo.component';
+import { MapaComponent } from './mapa/mapa.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent, canActivate: [authGuard] },
   { path: 'di-demo', component: DiDemoComponent },
+  { path: 'mapa', component: MapaComponent },
 
   // Ruta padre con children: tiene su propio router-outlet anidado
   {
