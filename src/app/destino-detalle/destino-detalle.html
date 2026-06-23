@@ -1,0 +1,26 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card shadow">
+        <div class="card-header bg-info text-white">
+          <h3 class="mb-0">
+            <i class="bi bi-info-circle"></i> Detalle del Destino
+          </h3>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">{{ destino.nombre }}</h4>
+          <p class="card-text">
+            <strong>Servicio:</strong> {{ destino.servicio }}
+          </p>
+          <p class="card-text text-muted">
+            Esta es la página de detalle del destino. Aquí se puede mostrar información completa
+            sobre el lugar seleccionado.
+          </p>
+          <a routerLink="/home" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Volver al listado
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

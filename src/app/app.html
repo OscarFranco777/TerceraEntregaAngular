@@ -1,3 +1,26 @@
-<app-lista-destinos></app-lista-destinos> 
+<!-- Header con navegación -->
+<div class="container-fluid bg-dark text-white py-3 mb-4">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-4">
+        <h1 class="h3 mb-0">Ruteo Simple</h1>
+      </div>
+      <div class="col-md-8">
+        <nav class="nav-links">
+          <a routerLink="/home" class="btn btn-outline-light btn-sm me-2">
+            <i class="bi bi-house"></i> Home
+          </a>
+          <a routerLink="/destino" class="btn btn-outline-light btn-sm me-2">
+            <i class="bi bi-geo-alt"></i> Destino
+          </a>
+          <a routerLink="/destino/detalle" class="btn btn-outline-info btn-sm">
+            <i class="bi bi-info-circle"></i> Ver Detalle
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- Router Outlet -->
 <router-outlet></router-outlet>

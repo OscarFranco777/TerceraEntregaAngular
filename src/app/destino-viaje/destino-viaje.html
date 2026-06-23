@@ -1,9 +1,57 @@
-<div class="card h-100 shadow-sm border-light">
-  <img [src]="destino.imagenUrl" class="card-img-top" alt="Imagen representativa del destino" style="height: 180px; object-fit: cover;">
-  
+<div class="card h-100 shadow-sm" [ngClass]="{'border-success border-2': destino.preferred, 'border-light': !destino.preferred}">
+
+  <!-- Posición / Índice -->
+  <div class="position-absolute top-0 start-0 m-2">
+    <span class="badge bg-dark">#{{ index + 1 }}</span>
+  </div>
+
+  <!-- Imagen con fallback -->
+  <img [src]="destino.imagenSegura" class="card-img-top" alt="Imagen de {{ destino.nombre }}" style="height: 180px; object-fit: cover;">
+
   <div class="card-body text-center">
     <h5 class="card-title text-capitalize fw-bold text-dark">{{ destino.nombre }}</h5>
+
+    <!-- Badge Preferido -->
+    <span *ngIf="destino.preferred" class="badge bg-success mb-2">✅ Preferido</span>
+
+    <!-- Ver Detalle -->
+    <div class="mb-2">
+      <a routerLink="/destino/detalle" class="btn btn-outline-info btn-sm">
+        <i class="bi bi-eye"></i> Ver Detalle
+      </a>
+    </div>
+
+    <!-- ngSwitch para servicios -->
+    <div [ngSwitch]="destino.servicio" class="mb-2">
+      <span *ngSwitchCase="'wifi'" class="badge bg-info">
+        <i class="bi bi-wifi"></i> WiFi
+      </span>
+      <span *ngSwitchCase="'servicios'" class="badge bg-primary">
+        <i class="bi bi-gear"></i> Servicios
+      </span>
+      <span *ngSwitchCase="'piscina'" class="badge bg-info">
+        <i class="bi bi-droplet"></i> Piscina
+      </span>
+      <span *ngSwitchDefault class="badge bg-danger">
+        <i class="bi bi-cup-hot"></i> Desayuno
+      </span>
+    </div>
+
+    <!-- Botones de Voto -->
+    <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
+      <button type="button" class="btn btn-outline-success btn-sm" (click)="onUpvote()">
+        👍 Me gusta
+      </button>
+      <span class="badge bg-secondary">{{ destino.votos }}</span>
+      <button type="button" class="btn btn-outline-danger btn-sm" (click)="onDownvote()">
+        👎 No me gusta
+      </button>
+    </div>
+
     <p class="card-text text-muted small">¡Listo para la aventura!</p>
-    <button type="button" class="btn btn-outline-primary btn-sm px-4">Ver detalles</button>
+
+    <button type="button" class="btn btn-primary btn-sm px-4" (click)="onSeleccionar()">
+      <i class="bi bi-geo-alt"></i> Ir
+    </button>
   </div>
 </div>

@@ -1,0 +1,38 @@
+<form [formGroup]="fg" (ngSubmit)="agregar()">
+  <div class="mb-3">
+    <label for="txtNombre" class="form-label">Nombre del Destino</label>
+    <input type="text" class="form-control" id="txtNombre"
+           #nombreInput
+           formControlName="nombre" placeholder="Ej. París, Japón...">
+
+    <!-- Lista de sugerencias del autocomplete -->
+    <ul class="list-group sugerencias" *ngIf="searchResults.length > 0">
+      <li class="list-group-item list-group-item-action sugerencia-item"
+          *ngFor="let lugar of searchResults"
+          (click)="seleccionarSugerencia(lugar)">
+        📍 {{ lugar.nombre }}
+      </li>
+    </ul>
+
+    <div *ngIf="fg.controls['nombre'].touched && fg.controls['nombre'].hasError('required')" class="text-danger">
+      ⚠️ El nombre es requerido.
+    </div>
+    <div *ngIf="fg.controls['nombre'].touched && fg.controls['nombre'].hasError('invalidNombre')" class="text-danger">
+      ⚠️ Nombre inválido (solo letras y espacios).
+    </div>
+    <div *ngIf="fg.controls['nombre'].touched && fg.controls['nombre'].hasError('minLogNombre')" class="text-danger">
+      ⚠️ Debe tener al menos {{ fg.controls['nombre'].getError('minLogNombre').requiredLength }} caracteres (tiene {{ fg.controls['nombre'].getError('minLogNombre').actualLength }}).
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="txtUrl" class="form-label">Enlace de la Imagen</label>
+    <input type="text" class="form-control" id="txtUrl"
+           formControlName="url" placeholder="https://ejemplo.com/foto.jpg">
+    <div *ngIf="fg.controls['url'].touched && fg.controls['url'].hasError('required')" class="text-danger">
+      ⚠️ El enlace de la imagen es requerido.
+    </div>
+  </div>
+  <button *ngIf="fg.get('nombre')?.value" type="submit" class="btn btn-success w-100">
+    ¡Agregar al listado!
+  </button>
+</form>

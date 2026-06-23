@@ -6,17 +6,7 @@
           <h4 class="mb-0">Mi Wishlist de Viajes</h4>
         </div>
         <div class="card-body">
-          <form>
-            <div class="mb-3">
-              <label for="txtNombre" class="form-label">Nombre del Destino</label>
-              <input type="text" class="form-control" id="txtNombre" #nombre placeholder="Ej. París, Japón...">
-            </div>
-            <div class="mb-3">
-              <label for="txtUrl" class="form-label">Enlace de la Imagen</label>
-              <input type="text" class="form-control" id="txtUrl" #url placeholder="https://ejemplo.com/foto.jpg">
-            </div>
-            <button type="button" class="btn btn-success w-100" (click)="guardar(nombre.value, url.value)">¡Agregar al listado!</button>
-          </form>
+          <app-form-destino-viaje (onItemAdded)="onItemAdded($event)"></app-form-destino-viaje>
         </div>
       </div>
     </div>
@@ -24,16 +14,48 @@
 
   <hr class="my-5">
 
+  <!-- Destinos Agregados (desde el store de NgRx) -->
   <div class="row">
     <div class="col-12">
       <h3 class="mb-4 text-secondary">Destinos Agregados:</h3>
       
       <ul class="list-unstyled row">
-        <li class="col-md-4 mb-4" *ngFor="let d of destinos">
-          <app-destino-viaje [destino]="d"></app-destino-viaje>
+        <li class="col-md-4 mb-4" *ngFor="let d of destinos$ | async; let i = index">
+          <app-destino-viaje [destino]="d" [index]="i" (seleccionarPreferido)="seleccionar($event)"></app-destino-viaje>
+          <button class="btn btn-sm btn-outline-danger mt-1" (click)="eliminar(i)">🗑️ Eliminar</button>
         </li>
       </ul>
 
+      <p *ngIf="(destinos$ | async)?.length === 0" class="text-muted">
+        Aún no se han agregado destinos.
+      </p>
+
+      <button *ngIf="(destinos$ | async)?.length! > 0" class="btn btn-warning btn-sm mt-2" (click)="resetVotos()">
+        🔄 Resetear Votos
+      </button>
+    </div>
+  </div>
+
+  <hr class="my-5">
+
+  <!-- Log de Actividades (desde el store de NgRx) -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card border-info shadow-sm">
+        <div class="card-header bg-info text-white">
+          <h5 class="mb-0">📋 Actividad</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-group" *ngIf="(actividades$ | async)?.length! > 0">
+            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let act of actividades$ | async">
+              <span>✅ {{ act }}</span>
+            </li>
+          </ul>
+          <p *ngIf="(actividades$ | async)?.length === 0" class="text-muted mb-0">
+            Aún no se ha seleccionado ningún destino preferido.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
